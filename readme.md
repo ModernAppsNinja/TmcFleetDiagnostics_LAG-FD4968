@@ -1,199 +1,229 @@
-**THIS GUIDE IS UNDER DEVELOPMENT AND MAY NOT BE FUNCTIONAL - THIS MESSAGE WILL BE REMOVED WHEN THE GUIDE IS READY FOR USE. IF YOU HAVE ANY QUESTIONS, PLEASE OPEN AN ISSUE TICKET. IF YOU WOULD LIKE TO CONTRIBUTE TO THIS GUIDE, PLEASE SUBMIT A PR WITH YOUR UPDATES, THANK YOU.** 
-
-**PLEASE DO NOT REMOVE ANYTHING ABOVE THIS LINE UNTIL YOUR GUIDE IS COMPLETE AND VALIDATED FOR END USER CONSUMPTION** 
-
-## ModernApps.ninja starter guide template 
-
-Please reference the content below for formatting examples, and replace with your desired content.
-# Lab Excercise Page Syle Template - 1st level - Main Header
+# Tanzu Mission Control - Fleet Diagnostics Lab Guide
 
 **Contents:**
 
-- [Step 1: ]()
-- [Step 2: ]()
-- [Step 3: ]()
-- [Step 4: ]()
-- [Step 5: ]()
-- [Next Steps]()
+- [Tanzu Mission Control - Fleet Diagnostics Lab Guide](#tanzu-mission-control---fleet-diagnostics-lab-guide)
+  - [Introduction](#introduction)
+    - [Before Attempting This Lab:](#before-attempting-this-lab)
+    - [Environment Pre-Requisites](#environment-pre-requisites)
+  - [Scenarios](#scenarios)
+    - [Scenario 1: Find clusters with most allocated resource](#scenario-1-find-clusters-with-most-allocated-resource)
+      - [1.1: Go to the clusters list page](#11-go-to-the-clusters-list-page)
+      - [1.2: Sort clusters by allocated memory or CPU](#12-sort-clusters-by-allocated-memory-or-cpu)
+    - [Scenario 2: Check workloads of a specific cluster](#scenario-2-check-workloads-of-a-specific-cluster)
+      - [2.1: Locate the cluster](#21-locate-the-cluster)
+      - [2.2: Check the workloads](#22-check-the-workloads)
+        - [option #1: Click "Workloads" from the cluster overview page.](#option-1-click-%22workloads%22-from-the-cluster-overview-page)
+        - [option #2: Go the workloads list page in the left hand of main page and filter by cluster name.](#option-2-go-the-workloads-list-page-in-the-left-hand-of-main-page-and-filter-by-cluster-name)
+      - [2.3: Check specific workload](#23-check-specific-workload)
+    - [Scenario 3: Check cluster health](#scenario-3-check-cluster-health)
+      - [3.1: Check fleet health](#31-check-fleet-health)
+      - [3.2: Check specific cluster health](#32-check-specific-cluster-health)
+      - [3.3: Diagnose unhealthy cluster](#33-diagnose-unhealthy-cluster)
+    - [Scenario 4: Manage your workloads when you don't have access to cluster](#scenario-4-manage-your-workloads-when-you-dont-have-access-to-cluster)
+      - [4.1: Find your workloads from main page](#41-find-your-workloads-from-main-page)
+      - [4.2: Find your workloads from workspace](#42-find-your-workloads-from-workspace)
+    - [Validate Lab Guide](#validate-lab-guide)
 
-## Step 1: 2nd level header, steps often have multiple substeps and subsections
+## Introduction
 
-1.1 Uses dotted decimal numbering. This sentence 1.1 is a substep of step 1. Use a single decimal format for each substep that itself does not have other substeps. For substeps that have their own substeps, use a subsection format shown in steps 1.2 and 1.3
+This document is intended to show how you can use TMC UI to manage all your clusters and workloads with regard to different personas (platform operator, infrastructure operator, application operator, application developer); and drill down to a specific cluster to investigate cluster health and workloads running in the cluster. 
 
-This format is intended to find an optimal balance of usability for the user and flexibility and simplicity for content developers. As this paragraph demonstrates, its perfectly fine to add prose inline within each step as needed to sufficiently explain the step, keeping in mind that it is crucial for user experience to keep the document streamlined, and so recommend liberal use of hidden and expandable section blocks as shown below
+### Before Attempting This Lab:
 
-<details><summary>Click to expand</summary>
+This lab has a completion difficulty of `Partial`. Please see the rubrik below for an explanation of lab completion difficulty rankings
 
-If you have any long text sections such as detailed explanations, code examples, configuration files, etc, please wrap them in expanding sections as shown here.
+Lab Completion Difficulty Rankings:
 
-Keep in mind this template is optimized for Lab Exercise guides which generally include lots of tasks that the reader needs to do. 
+- Difficulty Levels:
+  - `Complete`
+    - A lab guide with a difficulty of `Complete` includes comprehensive, click-by-click instructions, usually with a screenshot for every command entered. Complete labs must be associated with an online lab environment fully prepped to execute the exact instructions provided in the lab guide. Most users could successfully execute the steps in a `Complete` lab guide, even if they do not have expertise in the subject, by following detailed instructions.
+  - `Partial`
+    - A lab guide with a difficulty of `Partial` includes full instructions to complete the exercise, with enough detail to where a user with moderate experience in the subject matter could complete the exercise. `Partial` lab guides provide a level of detail similar gto most typical technical documentation, where the user is expected to be able to configure their lab environment with dependencies required for the exercise, and to contextualize general instructions to the users own environment. 
+  - `Challenge`
+    - A lab guide with a difficulty of `Challenge` is designed to be technically challenging for the guide's target audience to complete. `Challenge` lab guides do not include comprehensive instructions, and intentionally leave out details required to complete exercises as a challenge or test of the users proficiency in a topic.
 
-Also please place all images inside expanding blocks, further details about images will be shown in step 1.4 below
+### Environment Pre-Requisites
 
-</details>
-<br/>
+The demo in this document is conducted with a development TMC stack with several attached clusters and provisioned clusters.
 
-1.2 Minor subsection headers
+## Scenarios
 
-1.2.1 if you have a substep that includes its own substeps, you need a subsection. This style guide offers two options for subsection handling, the minor subsection format shown here in step 1.2, and the major subsection format shown in step 1.3
+### Scenario 1: Find clusters with most allocated resource
 
-### 1.3 Major Subsection Headers
+As a platform operator or infrastructure operator, you might want to check which clusters have most resource allocated.
 
-Use major subsection headers whenever they are a better fit for the flow of your document. It is fine to use both minor and major subsection styles within the same document, so long as the overall flow and organization of the document make sense to the reader
+#### 1.1: Go to the clusters list page
 
-The rest of the text below is sample text copied from a lab exercise guide that uses this style
-
-1.3.1 Make a copy of the `frontend-deployment_all_k8s.yaml` file, save it as `frontend-deployment_ingress.yaml`
-
-Example:
-`cp frontend-deployment_all_k8s.yaml frontend-deployment_ingress.yaml`
-
-1.3.2 Get the URL of your smarcluster with the following command, be sure to replace 'afewell-cluster' with the name of your cluster:
-
-``` bash
-vke cluster show afewell-cluster | grep Address
-```
-
-<details><summary>Screenshot 1.3.2</summary>
-<img src="media/2018-10-20-15-45-19.png">
-</details>
-<br/>
-
-1.3.3 Edit the `frontend-deployment_ingress.yaml` file, near the bottom of the file in the ingress spec section, change the value for spec.rules.host to URL for your smartcluster as shown in the following snippet:
-
-NOTE: Be sure to replace the URL shown here with the URL for your own smartcluster
-
-``` bash
-spec:
-  rules:
-  - host: afewell-cluster-69fc65f8-d37d-11e8-918b-0a1dada1e740.fa2c1d78-9f00-4e30-8268-4ab81862080d.vke-user.com
-    http:
-      paths:
-      - backend:
-          serviceName: planespotter-frontend
-          servicePort: 80
-```
-
-<details><summary>Click to expand to see the full contents of frontend-deployment_ingress.yaml</summary>
-
-When reviewing the file contents below, observe that it includes a ClusterIP service spec which only provides an IP address that is usable for pod-to-pod communications in the cluster. The file also includes an ingress spec which implements the default VKE ingress controller.
-
-In the following steps after you deploy the planespotter-frontend with ingress controller, you will be able to browse from your workstation to the running planespotter app in your VKE environment even though you have not assigned a nat or public IP for the service.
-
-Ingress controllers act as a proxies, recieving http/s requests from external clients and then based on the URL hostname or path, the ingress controller will proxy the request to the corresponding back-end service. For example mysite.com/path1 and mysite.com/path2 can be routed to different backing services running in the kubernetes cluster.
-
-In the file below, no rules are specified to different paths and so accordingly, all requests sent to the host defined in the spec, your VKE SmartCluster URL, will be proxied by the ingress controller to the planespotter-frontend ClusterIP service also defined in the frontend-deployment_ingress.yaml file
-
-``` bash
----
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: planespotter-frontend
-  namespace: planespotter
-  labels:
-    app: planespotter-frontend
-    tier: frontend
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: planespotter-frontend
-  template:
-    metadata:
-      labels:
-        app: planespotter-frontend
-        tier: frontend
-    spec:
-      containers:
-      - name: planespotter-fe
-        image: yfauser/planespotter-frontend:d0b30abec8bfdbde01a36d07b30b2a3802d9ccbb
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: PLANESPOTTER_API_ENDPOINT
-          value: planespotter-svc
-        - name: TIMEOUT_REG
-          value: "5"
-        - name: TIMEOUT_OTHER
-          value: "5"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: planespotter-frontend
-  namespace: planespotter
-  labels:
-    app: planespotter-frontend
-spec:
-  ports:
-    # the port that this service should serve on
-    - port: 80
-  selector:
-    app: planespotter-frontend
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: planespotter-frontend
-  namespace: planespotter
-spec:
-  rules:
-  - host: afewell-cluster-69fc65f8-d37d-11e8-918b-0a1dada1e740.fa2c1d78-9f00-4e30-8268-4ab81862080d.vke-user.com
-    http:
-      paths:
-      - backend:
-          serviceName: planespotter-frontend
-          servicePort: 80
-```
-
-</details>
-<br/>
-
-1.3.4 Run the updated planespotter-frontend app and verify deployment with the following commands. Make note of the external IP address/hostname shown in the output of `kubectl get services`
-
-``` bash
-kubectl create -f frontend-deployment_ingress.yaml
-kubectl get pods
-kubectl get deployments
-kubectl get services
-kubectl get ingress
-kubectl describe ingress
-```
-
-<details><summary>Screenshot 1.3.4</summary>
-<img src="media/2018-10-20-16-11-14.png">
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-29-50.png">
 </details>
 
-1.3.5 Open a browser and go to the url of your VKE SmartCluster to verify that planespotter-frontend is externally accessible with the LoadBalancer service
+All clusters in your organization are displayed here.
 
-<details><summary>Screenshot 5.5.5</summary>
-<img src="media/2018-10-20-16-26-46.png">
+Question: Is there any other cluster properties you'd like to see in this cluster list? 
+
+Tip: In case "Allocated memory" and "Allocated CPU" columns are hidden, click the column icon in the bottom left corner of the cluster list grid. Then select these two columns in the column list.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-30-29.png">
 </details>
-<br/>
 
-1.3.6 Clean up the planespotter-frontend components and verify with the following commands:
+#### 1.2: Sort clusters by allocated memory or CPU
 
-``` bash
-kubectl delete -f frontend-deployment_ingress.yaml
-kubectl get pods
-kubectl get deployments
-kubectl get services
-kubectl get ingress
-```
+TMC provides you an option to sort clusters by cluster name, status, health, version, allocated memory & CPU and number of nodes. As an example, click "Allocated memory" twice to sort the clusters by decreasing order to find the clusters with most allocated memory. Then you can click into any cluster for further investigation.
 
-<details><summary>Screenshot 5.5.6</summary>
-<img src="media/2018-10-20-16-32-19.png">
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-31-23.png">
 </details>
-<br/>
 
-## Next Steps
+### Scenario 2: Check workloads of a specific cluster
 
-This lab provided an introductory overview of Kubernetes operations. Additional topics such as persistent volumes, network policy, config maps, stateful sets and more will be covered in more detail in the ongoing labs.
+If you are an infrastructure operator and you want to check the workloads of a specific cluster, here are the steps.
 
-If you are following the PKS Ninja cirriculum, [click here to proceed to the next lab](../Lab2-PksInstallationPhaseOne). As you proceed through the remaining labs you will learn more advanced details about Kubernetes using additional planespotter app components as examples and then deploy the complete planespotter application on a PKS environment.
+#### 2.1: Locate the cluster
 
-If you are not following the PKS Ninja cirriculum and would like to deploy the complete planespotter app on VKE, you can find [complete deployment instructions here](https://github.com/Boskey/run_kubernetes_with_vmware)
+In the clusters list page, you may filter the clusters by cluster name, status and version to help you to quickly locate the cluster you're interested in.
 
-### Thank you for completing the Introduction to Kubernetes Lab!
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-32-49.png">
+</details>
 
-### [Please click here to proceed to Lab2: PKS Installation Phase 1](../Lab2-PksInstallationPhaseOne)
+Click the cluster and go to its overview page.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-33-10.png">
+</details>
+
+Question: Is there any other cluster properties you'd like to see in this cluster overview page?
+
+#### 2.2: Check the workloads
+
+##### option #1: Click "Workloads" from the cluster overview page.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-34-39.png">
+</details>
+
+Question: Is there any other workload properties you'd like to see in this workload list? 
+
+##### option #2: Go the workloads list page in the left hand of main page and filter by cluster name.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-35-55.png">
+</details>
+
+Note there is option in the upper right corner to hide Tanzu objects and system objects.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-36-19.png">
+</details>
+
+It can help you focus on your production workloads. Now you may route to any specific workload from here.
+
+#### 2.3: Check specific workload
+
+From the workloads pane, select the nginx-deployment workload:
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-37-49.png">
+</details>
+
+It shows workload information including which namespace it belongs to, CPU & memory usage, the pods inside the workload and its source yaml file. You may also check specific pod by clicking its name.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-38-12.png">
+</details>
+
+Question: Is there any other workload information that you find missing?
+
+### Scenario 3: Check cluster health
+
+If you are a platform operator or infrastructure operator, you may need to check if your clusters or a specific cluster is healthy.
+
+#### 3.1: Check fleet health
+
+Go to the clusters list page, sort the clusters by "Health" column.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-39-42.png">
+</details>
+
+#### 3.2: Check specific cluster health
+
+After you locate the cluster that you'd like to explore in the cluster list page, click the cluster to go to its overview page. A cluster is healthy when all of its components (controller-manager, etcd, api-server and scheduler) are healthy and all worker nodes are healthy.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-40-30.png">
+</details>
+
+Question: Do you consider factors other than component health and worker node health to decide whether a cluster is healthy? 
+
+#### 3.3: Diagnose unhealthy cluster
+
+Assume you find a cluster is in a warning state in cluster list page, let's find out what goes wrong with this cluster. Click the cluster and land in the following page. Here you will notice that a worker node is in a warning state. Let's click Nodes tab to dig deeper.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-41-42.png">
+</details>
+
+1 node is in warning state! Let's choose that node and see what triggered the warning.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-42-16.png">
+</details>
+
+Hover over each node condition and noticed that this node has disk pressure. Now you find out the root cause and can take actions to fix it. 
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-42-44.png">
+</details>
+
+### Scenario 4: Manage your workloads when you don't have access to cluster
+
+If you are an application operator or application developer, you may have access to your workspace and namespaces but don't have cluster-wide access. The clusters overview may look like this to you:
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-43-37.png">
+</details>
+
+Are you still able to see your workloads? The answer is yes. Here's how:
+
+#### 4.1: Find your workloads from main page
+
+Please see screenshots below:
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-44-29.png">
+</details>
+
+Sorting/Filtering by workload name, object, cluster name, namespace name, labels and create time are supported. You are able to click each individual workload to manage it.
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-44-57.png">
+</details>
+
+#### 4.2: Find your workloads from workspace
+
+Please see screenshots below:
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-44-57.png">
+<img src="media/2020-03-06-02-46-01.png">
+</details>
+
+You can also get your workloads here. Click "Workloads".
+
+<details><summary>Screenshot</summary>
+<img src="media/2020-03-06-02-46-27.png">
+</details>
+
+### Validate Lab Guide
+
+If you were able to complete this lab successfully without any significant problems, please sign the [validate.md](./validate.md) file located in this directory. 
+
+If you encountered any problems or have suggestions or feature requests, please open an issue ticket on this repository. 
+
+If you have any updates or improvements for this lab guide, please open a PR with your updates.
+
+**Thank you for completing the Tanzu Mission Control - Fleet Diagnostics Lab Guide!**
